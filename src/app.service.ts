@@ -1,0 +1,192 @@
+import { Injectable } from '@nestjs/common';
+import * as grpc from '@grpc/grpc-js';
+import { promises as fs } from 'fs';
+import { connect, Contract, Identity, Signer, signers } from '@hyperledger/fabric-gateway';
+import * as path from 'path';
+import * as crypto from 'crypto';
+
+@Injectable()
+export class AppService {
+  private readonly peerEndpoint = this.envOrDefault('PEER_ENDPOINT', 'localhost:7051');
+  private readonly peerHostAlias = this.envOrDefault('PEER_HOST_ALIAS', 'peer0.org1.example.com');
+  private readonly mspId = this.envOrDefault('MSP_ID', 'Org1MSP');
+  private readonly channelName = this.envOrDefault('CHANNEL_NAME', 'mychannel');
+  private readonly chaincodeName = this.envOrDefault('CHAINCODE_NAME', 'basic');
+  private utf8Decoder = new TextDecoder();
+  private assetId = `asset${Date.now()}`;
+  async getHello(): Promise<string> {
+    const client = await this.newGrpcConnection();
+    const gateway = connect({
+      client,
+      identity: await this.newIdentity(),
+      signer: await this.newSigner(),
+      // Default timeouts for different gRPC calls
+      evaluateOptions: () => {
+          return { deadline: Date.now() + 5000 }; // 5 seconds
+      },
+      endorseOptions: () => {
+          return { deadline: Date.now() + 15000 }; // 15 seconds
+      },
+      submitOptions: () => {
+          return { deadline: Date.now() + 5000 }; // 5 seconds
+      },
+      commitStatusOptions: () => {
+          return { deadline: Date.now() + 60000 }; // 1 minute
+      },
+    });
+    try {
+      // Get a network instance representing the channel where the smart contract is deployed.
+      const network = gateway.getNetwork(this.channelName);
+
+      // Get the smart contract from the network.
+      const contract = network.getContract(this.chaincodeName);
+
+      // Initialize a set of asset data on the ledger using the chaincode 'InitLedger' function.
+      // await this.initLedger(contract);
+
+      // // Return all the current assets on the ledger.
+      // await this.getAllAssets(contract);
+
+      // // Create a new asset on the ledger.
+      await this.createAsset(contract);
+
+      // // Update an existing asset asynchronously.
+      // await this.transferAssetAsync(contract);
+
+      // // Get the asset details by assetID.
+      // await this.readAssetByID(contract);
+
+      // // Update an asset which does not exist.
+      // await this.updateNonExistentAsset(contract)
+  } finally {
+      gateway.close();
+      client.close();
+  }
+    return 'Hello World!';
+  }
+
+  private async getFirstDirFileName(dirPath: string): Promise<string> {
+    const files = await fs.readdir(dirPath);
+    return path.join(dirPath, files[0]);
+  }
+
+  private async newGrpcConnection(): Promise<grpc.Client> {
+    const tlsRootCert = await fs.readFile('ca.crt'); // test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+    const tlsCredentials = grpc.credentials.createSsl(tlsRootCert);
+    return new grpc.Client(this.peerEndpoint, tlsCredentials, {
+        'grpc.ssl_target_name_override': this.peerHostAlias,
+    });
+  }
+  private async newIdentity(): Promise<Identity> {
+    const credentials = await fs.readFile('cert.pem'); //test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/
+    const mspId = this.mspId;
+    return { mspId, credentials };
+  }
+
+  private async newSigner(): Promise<Signer> {
+    const privateKeyPem = await fs.readFile('private_key.pem'); //test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/
+    const privateKey = crypto.createPrivateKey(privateKeyPem);
+    return signers.newPrivateKeySigner(privateKey);
+  }
+
+  private async initLedger(contract: Contract): Promise<void> {
+    console.log('\n--> Submit Transaction: InitLedger, function creates the initial set of assets on the ledger');
+
+    await contract.submitTransaction('InitLedger');
+
+    console.log('*** Transaction committed successfully');
+  }
+
+  /**
+   * Evaluate a transaction to query ledger state.
+   */
+  async getAllAssets(contract: Contract): Promise<void> {
+    console.log('\n--> Evaluate Transaction: GetAllAssets, function returns all the current assets on the ledger');
+
+    const resultBytes = await contract.evaluateTransaction('GetAllAssets');
+
+    const resultJson = this.utf8Decoder.decode(resultBytes);
+    const result = JSON.parse(resultJson);
+    console.log('*** Result:', result);
+  }
+
+  /**
+  * Submit a transaction synchronously, blocking until it has been committed to the ledger.
+  */
+  async createAsset(contract: Contract): Promise<void> {
+    console.log('\n--> Submit Transaction: CreateAsset, creates new asset with ID, Color, Size, Owner and AppraisedValue arguments');
+
+    await contract.submitTransaction(
+        'CreateAsset',
+        this.assetId,
+        'yellow',
+        '5',
+        'Tom',
+        '1300',
+    );
+
+      console.log('*** Transaction committed successfully');
+  }
+
+  /**
+  * Submit transaction asynchronously, allowing the application to process the smart contract response (e.g. update a UI)
+  * while waiting for the commit notification.
+  */
+  async transferAssetAsync(contract: Contract): Promise<void> {
+    console.log('\n--> Async Submit Transaction: TransferAsset, updates existing asset owner');
+
+    const commit = await contract.submitAsync('TransferAsset', {
+        arguments: [this.assetId, 'Saptha'],
+    });
+    const oldOwner = this.utf8Decoder.decode(commit.getResult());
+
+    console.log(`*** Successfully submitted transaction to transfer ownership from ${oldOwner} to Saptha`);
+    console.log('*** Waiting for transaction commit');
+
+    const status = await commit.getStatus();
+    if (!status.successful) {
+        throw new Error(`Transaction ${status.transactionId} failed to commit with status code ${status.code}`);
+    }
+
+    console.log('*** Transaction committed successfully');
+  }
+
+  async readAssetByID(contract: Contract): Promise<void> {
+    console.log('\n--> Evaluate Transaction: ReadAsset, function returns asset attributes');
+
+    const resultBytes = await contract.evaluateTransaction('ReadAsset', this.assetId);
+
+    const resultJson = this.utf8Decoder.decode(resultBytes);
+    const result = JSON.parse(resultJson);
+    console.log('*** Result:', result);
+  }
+
+  /**
+  * submitTransaction() will throw an error containing details of any error responses from the smart contract.
+  */
+  async updateNonExistentAsset(contract: Contract): Promise<void>{
+    console.log('\n--> Submit Transaction: UpdateAsset asset70, asset70 does not exist and should return an error');
+
+    try {
+        await contract.submitTransaction(
+            'UpdateAsset',
+            'asset70',
+            'blue',
+            '5',
+            'Tomoko',
+            '300',
+        );
+        console.log('******** FAILED to return an error');
+    } catch (error) {
+        console.log('*** Successfully caught the error: \n', error);
+    }
+  }
+
+  /**
+   * envOrDefault() will return the value of an environment variable, or a default value if the variable is undefined.
+   */
+  private envOrDefault(key: string, defaultValue: string): string {
+    return process.env[key] || defaultValue;
+  }
+
+}
