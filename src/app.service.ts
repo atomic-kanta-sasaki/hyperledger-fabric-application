@@ -2,8 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as grpc from '@grpc/grpc-js';
 import { promises as fs } from 'fs';
 import { connect, Contract, Identity, Signer, signers } from '@hyperledger/fabric-gateway';
-import * as crypto from 'crypto';
-import { FabricGatewayService } from './hyperledger/fabric-gateway/fabric-gateway.service';
+import { FabricGatewayService } from './repository/Asset/hyperledger/fabric-gateway/fabric-gateway.service';
 
 @Injectable()
 export class AppService {

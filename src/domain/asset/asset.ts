@@ -2,12 +2,12 @@ export class Asset {
     private constructor(
         public readonly id: string,
         public color: string,
-        public size: number,
+        public size: string,
         public owner: string,
-        public value: number,
+        public value: string,
     ) {}
 
-    static create(id: string, color: string, size: number, owner: string, value: number): Asset {
+    static create(id: string, color: string, size: string, owner: string, value: string): Asset {
         return new Asset(id, color, size, owner, value);
     }
 
@@ -19,7 +19,7 @@ export class Asset {
         return this.color;
     }
 
-    public getSize(): number {
+    public getSize(): string {
         return this.size;
     }
 
@@ -27,7 +27,7 @@ export class Asset {
         return this.owner;
     }
 
-    public getValue(): number {
+    public getValue(): string {
         return this.value;
     }
 
@@ -39,7 +39,7 @@ export class Asset {
         this.owner = newOwner;
     }
 
-    public updateAsset(color: string, size: number, owner: string, value: number): void {
+    public updateAsset(color: string, size: string, owner: string, value: string): void {
         this.color = color;
         this.size = size;
         this.owner = owner;
