@@ -2,11 +2,16 @@ import { Injectable } from '@nestjs/common';
 import * as grpc from '@grpc/grpc-js';
 import { promises as fs } from 'fs';
 import { connect, Contract, Identity, Signer, signers } from '@hyperledger/fabric-gateway';
-import * as path from 'path';
 import * as crypto from 'crypto';
+import { FabricGatewayService } from './hyperledger/fabric-gateway/fabric-gateway.service';
 
 @Injectable()
 export class AppService {
+  constructor(
+    private readonly fabricGatewayService: FabricGatewayService,
+  ) {
+    this.fabricGatewayService.createConnection();
+  }
   private readonly peerEndpoint = this.envOrDefault('PEER_ENDPOINT', 'localhost:7051');
   private readonly peerHostAlias = this.envOrDefault('PEER_HOST_ALIAS', 'peer0.org1.example.com');
   private readonly mspId = this.envOrDefault('MSP_ID', 'Org1MSP');
@@ -16,58 +21,35 @@ export class AppService {
   private assetId = `asset${Date.now()}`;
   async getHello(): Promise<string> {
     const client = await this.newGrpcConnection();
-    const gateway = connect({
-      client,
-      identity: await this.newIdentity(),
-      signer: await this.newSigner(),
-      // Default timeouts for different gRPC calls
-      evaluateOptions: () => {
-          return { deadline: Date.now() + 5000 }; // 5 seconds
-      },
-      endorseOptions: () => {
-          return { deadline: Date.now() + 15000 }; // 15 seconds
-      },
-      submitOptions: () => {
-          return { deadline: Date.now() + 5000 }; // 5 seconds
-      },
-      commitStatusOptions: () => {
-          return { deadline: Date.now() + 60000 }; // 1 minute
-      },
-    });
     try {
       // Get a network instance representing the channel where the smart contract is deployed.
-      const network = gateway.getNetwork(this.channelName);
+      // const network = gateway.getNetwork(this.channelName);
 
       // Get the smart contract from the network.
-      const contract = network.getContract(this.chaincodeName);
+      const contract = this.fabricGatewayService.getContract(this.channelName, this.chaincodeName);
 
       // Initialize a set of asset data on the ledger using the chaincode 'InitLedger' function.
-      // await this.initLedger(contract);
+      // await this.initLedger(contracat);
 
       // // Return all the current assets on the ledger.
-      // await this.getAllAssets(contract);
+      await this.getAllAssets(contract);
 
       // // Create a new asset on the ledger.
-      await this.createAsset(contract);
+      // await this.createAsset(contract);
 
       // // Update an existing asset asynchronously.
       // await this.transferAssetAsync(contract);
 
-      // // Get the asset details by assetID.
+      // // Get the asset details by assetID.`
       // await this.readAssetByID(contract);
 
       // // Update an asset which does not exist.
       // await this.updateNonExistentAsset(contract)
   } finally {
-      gateway.close();
+      this.fabricGatewayService.closeConnection();
       client.close();
   }
     return 'Hello World!';
-  }
-
-  private async getFirstDirFileName(dirPath: string): Promise<string> {
-    const files = await fs.readdir(dirPath);
-    return path.join(dirPath, files[0]);
   }
 
   private async newGrpcConnection(): Promise<grpc.Client> {
@@ -76,17 +58,6 @@ export class AppService {
     return new grpc.Client(this.peerEndpoint, tlsCredentials, {
         'grpc.ssl_target_name_override': this.peerHostAlias,
     });
-  }
-  private async newIdentity(): Promise<Identity> {
-    const credentials = await fs.readFile('cert.pem'); //test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/
-    const mspId = this.mspId;
-    return { mspId, credentials };
-  }
-
-  private async newSigner(): Promise<Signer> {
-    const privateKeyPem = await fs.readFile('private_key.pem'); //test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/
-    const privateKey = crypto.createPrivateKey(privateKeyPem);
-    return signers.newPrivateKeySigner(privateKey);
   }
 
   private async initLedger(contract: Contract): Promise<void> {
