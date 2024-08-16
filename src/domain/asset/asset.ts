@@ -1,10 +1,10 @@
 export class Asset {
     private constructor(
-        public readonly id: string,
-        public color: string,
-        public size: string,
-        public owner: string,
-        public value: string,
+        private readonly id: string,
+        private color: string,
+        private size: string,
+        private owner: string,
+        private value: string,
     ) {}
 
     static create(id: string, color: string, size: string, owner: string, value: string): Asset {
@@ -35,7 +35,7 @@ export class Asset {
         return new Asset(this.id, this.color, this.size, this.owner, this.value);
     }
 
-    public transfer(newOwner: string): void {
+    public changeOwner(newOwner: string): void {
         this.owner = newOwner;
     }
 
@@ -45,4 +45,5 @@ export class Asset {
         this.owner = owner;
         this.value = value;
     }
+    
 }

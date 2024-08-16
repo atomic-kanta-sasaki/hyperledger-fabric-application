@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { FabricGatewayService } from 'src/repository/Asset/hyperledger/fabric-gateway/fabric-gateway.service';
+import { FabricGatewayService } from 'src/repository/hyperledger/fabric-gateway/fabric-gateway.service';
 import { AssetRepository } from 'src/repository/Asset/assetRepository';
 
 @Injectable()

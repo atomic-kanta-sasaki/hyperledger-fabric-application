@@ -7,8 +7,10 @@ export class TransferService {
         private readonly assetRepository: AssetRepository
     ) {}
 
-    async call(): Promise<void> {
-        // const asset = asset.
-        await this.assetRepository.transferAsset('Saptha');
+    async call(): Promise<any> {
+        const asset = await this.assetRepository.getAssetById('asset1723695162129');
+        asset.changeOwner('kuris')
+        await this.assetRepository.transferAsset(asset);
+        return asset;
     }
 }
