@@ -7,17 +7,13 @@ const organizationData: Prisma.OrganizationCreateInput[] = [
     id: '1',
     name: 'Org1',
   },
-  {
-    id: '2',
-    name: 'Org2',
-  },
 ]
 
 // Peer seed data
 const peerData: Prisma.PeerCreateInput[] = [
   {
-    name: 'peer0.org1.example.com',
-    tlsCertPath: 'user/ca.crt',
+    name: 'org1.example.com',
+    tlsCertPath: 'peer/org1.example.com/ca.crt',
     organization: {
       connect: {
         id: '1',
@@ -25,22 +21,21 @@ const peerData: Prisma.PeerCreateInput[] = [
     },
   },
   {
-    name: 'peer0.org2.example.com',
-    tlsCertPath: 'user/ca.crt',
+    name: 'org2.example.com',
+    tlsCertPath: 'peer/org2.example.com/ca.crt',
     organization: {
       connect: {
-        id: '2',
+        id: '1',
       },
     },
   },
 ]
-
 // User seed data
 const userData: Prisma.UserCreateInput[] = [
   {
     name: 'User1',
-    certPath: 'user1/cert.pem',
-    privateKeyPath: 'user1/private_key.pem',
+    certPath: 'user/User1@org1.example.com/cert.pem',
+    privateKeyPath: 'user/User1@org1.example.com/key.pem',
     organization: {
       connect: {
         id: '1',
@@ -49,11 +44,11 @@ const userData: Prisma.UserCreateInput[] = [
   },
   {
     name: 'User2',
-    certPath: 'user2/cert.pem',
-    privateKeyPath: 'user2/private_key.pem',
+    certPath: 'user/User1@org2.example.com/cert.pem',
+    privateKeyPath: 'user/User1@org2.example.com/key.pem',
     organization: {
       connect: {
-        id: '2',
+        id: '1',
       },
     },
   },
