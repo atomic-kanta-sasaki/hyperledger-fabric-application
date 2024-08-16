@@ -2,6 +2,7 @@ import { Contract } from "@hyperledger/fabric-gateway";
 import { FabricGatewayService } from "src/repository/hyperledger/fabric-gateway/fabric-gateway.service";
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Asset } from "src/domain/asset/asset";
+import { PrismaService } from "../prisma/prisma.service";
 
 @Injectable()
 export class AssetRepository implements OnModuleInit {
@@ -11,6 +12,7 @@ export class AssetRepository implements OnModuleInit {
     private utf8Decoder = new TextDecoder();
 
     constructor(
+        private readonly prismaService: PrismaService,
         private readonly fabricGatewayService: FabricGatewayService,
     ) {}
 

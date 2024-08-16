@@ -6,9 +6,10 @@ import { GetAllAssetService } from 'src/usecase/asset/getAllAsset.service';
 import { GetAssetService } from 'src/usecase/asset/getAsset.service';
 import { TransferService } from 'src/usecase/asset/transfer.service';
 import { HyperledgerModule } from '../hyperledger/hyperledger.module';
+import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-    imports: [HyperledgerModule],
+    imports: [HyperledgerModule, PrismaModule],
     controllers: [AssetController],
     providers: [AssetInitLedgerService, GetAllAssetService, AssetRepository, TransferService, GetAssetService],
     exports: [],
