@@ -25,7 +25,6 @@ export class AssetRepository implements OnModuleInit {
     }
 
     async getAllAssets() {
-
       const resultBytes = await this.contract.evaluateTransaction('GetAllAssets');
 
       const resultJson = this.utf8Decoder.decode(resultBytes);

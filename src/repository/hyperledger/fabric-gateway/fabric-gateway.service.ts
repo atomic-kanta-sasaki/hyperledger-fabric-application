@@ -15,9 +15,9 @@ export class FabricGatewayService  {
     ) {}
 
     async createConnection() {
-        const grpcConnection = await this.clientProvider.newGrpcConnection('localhost:7051', 'peer0.org1.example.com', 'user/ca.crt');
-        const identity = await this.identityProvider.newIdentity('Org1MSP','user/cert.pem');
-        const signer = await this.signerProvider.newSigner('user/private_key.pem')
+        const grpcConnection = await this.clientProvider.newGrpcConnection('localhost:7051', 'peer0.org1.example.com', 'peer/org1.example.com/ca.crt');
+        const identity = await this.identityProvider.newIdentity('Org1MSP','user/User1@org1.example.com/cert.pem');
+        const signer = await this.signerProvider.newSigner('user/User1@org1.example.com/key.pem')
         this.gateway = connect({
             client: grpcConnection,
             identity: identity,
