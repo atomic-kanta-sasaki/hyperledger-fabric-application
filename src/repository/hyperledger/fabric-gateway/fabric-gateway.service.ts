@@ -1,10 +1,9 @@
 import { connect, Network, Gateway, Contract } from '@hyperledger/fabric-gateway';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { GrpcClientProvider } from '../grpc-client/grpc-client';
 import { IdentityProvider } from '../identity/identity';
 import { SignerProvider } from '../signer/signer';
 import { RequestService } from 'src/usecase/request/request.service';
-import { REQUEST } from '@nestjs/core';
 import { UserRepository } from 'src/repository/user/userRepository';
 import { PeerRepository } from 'src/repository/peer/peerRepository';
 

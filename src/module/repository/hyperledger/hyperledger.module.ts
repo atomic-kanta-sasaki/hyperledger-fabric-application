@@ -3,13 +3,13 @@ import { FabricGatewayService } from 'src/repository/hyperledger/fabric-gateway/
 import { GrpcClientProvider } from 'src/repository/hyperledger/grpc-client/grpc-client';
 import { IdentityProvider } from 'src/repository/hyperledger/identity/identity';
 import { SignerProvider } from 'src/repository/hyperledger/signer/signer';
-import { PeerRepository } from 'src/repository/peer/peerRepository';
-import { PrismaService } from 'src/repository/prisma/prisma.service';
-import { UserRepository } from 'src/repository/user/userRepository';
 import { RequestService } from 'src/usecase/request/request.service';
+import { PeerRepositoryModule } from '../peer/peer.module';
+import { UserRepositoryModule } from '../user/user.module';
 
 @Module({
-    providers: [FabricGatewayService, GrpcClientProvider, IdentityProvider, SignerProvider, RequestService, PrismaService, UserRepository, PeerRepository],
+    imports: [PeerRepositoryModule, UserRepositoryModule],
+    providers: [FabricGatewayService, GrpcClientProvider, IdentityProvider, SignerProvider, RequestService],
     exports: [FabricGatewayService, RequestService],
   })
 export class HyperledgerModule {}

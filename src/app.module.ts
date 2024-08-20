@@ -1,7 +1,7 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { AssetModule } from './module/asset/asset.module';
-import { HyperledgerModule } from './module/hyperledger/hyperledger.module';
-import { PrismaModule } from './module/prisma/prisma.module';
+import { AssetModule } from './module/controller/asset/asset.module';
+import { HyperledgerModule } from './module/repository/hyperledger/hyperledger.module';
+import { PrismaModule } from './module/repository/prisma/prisma.module';
 import { AuthenticationMiddleware } from './middleware/authentication.middleware';
 
 @Module({
