@@ -45,25 +45,25 @@ https://drive.google.com/file/d/1xYKaVIECLKaOo0NEShXlshQ16secAAYn/view?usp=shari
 
 ## 各ディレクトリ構成について
  - src/controller
-  - ルーティング用のディレクトリ（プレゼンテーション層）
+   - ルーティング用のディレクトリ（プレゼンテーション層）
  - src/domain
-  - ドメインロジック（ドメイン層）
+   - ドメインロジック（ドメイン層）
  - src/middlewre
-  - 認証とか
+   - 認証とか
  - src/module
-  - 依存関係解決のための定義ファイルInjectionごとにmoduleファイル分けたほうがいいかなー
+   - 依存関係解決のための定義ファイルInjectionごとにmoduleファイル分けたほうがいいかなー
  - src/repository
-  - ブロックチェーンにデータを永続化したり、RDBにデータを永続化したりする
+   - ブロックチェーンにデータを永続化したり、RDBにデータを永続化したりする
  - src/types
-  - 型定義
+   - 型定義
  - src/usecase
-  - ビジネスロジックを作成する
+   - ビジネスロジックを作成する
  - peer
-  - peerのTLS証明書ファイルを保存する場所
+   - peerのTLS証明書ファイルを保存する場所
  - user
-  - userの公開鍵、秘密鍵を保存する
+   - userの公開鍵、秘密鍵を保存する
  - prisma
-  - prismaの設定ファイルやマイグレーションファイル
+   - prismaの設定ファイルやマイグレーションファイル
  - test
 
 ## blockchain(Hyperledger)
@@ -88,5 +88,17 @@ chaincodeのデプロイ
 ```
 
 各種証明書ファイルのコピー
-
-test-network/
+userの秘密鍵
+```
+test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/key.pem を user/User1@org1.example.com/key.pemにコピー
+↑
+key.pemの方は別の文字列になっているのでわかりやすくするためのkey.pemとしてコピーしてください
+```
+userの公開鍵
+```
+test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/cert.pem を user/User1@org1.example.com/cert.pemにコピー
+```
+peerのTLS証明書
+```
+test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt を 
+```
