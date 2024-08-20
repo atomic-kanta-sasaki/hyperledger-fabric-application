@@ -36,6 +36,4 @@ export class UserRepository {
     async getAllUsers(): Promise<void> {
         return;
     }
-
-
 }
