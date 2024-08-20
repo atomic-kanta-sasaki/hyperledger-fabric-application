@@ -48,7 +48,8 @@ $ npm run test:cov
  - src/middlewre
    - 認証とか
  - src/module
-   - 依存関係解決のための定義ファイルInjectionごとにmoduleファイル分けたほうがいいかなー
+   - 依存関係解決のためのmoduleシステム
+   - 循環参照防止のためInjection毎に1module作っている
  - src/repository
    - ブロックチェーンにデータを永続化したり、RDBにデータを永続化したりする
  - src/types

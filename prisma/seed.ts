@@ -12,6 +12,7 @@ const organizationData: Prisma.OrganizationCreateInput[] = [
 // Peer seed data
 const peerData: Prisma.PeerCreateInput[] = [
   {
+    id: '0b49bccc-10dd-4cbe-8eea-a123eebc1f9d',
     name: 'org1.example.com',
     tlsCertPath: 'peer/org1.example.com/ca.crt',
     peerEndpoint: 'localhost:7051',
@@ -23,6 +24,7 @@ const peerData: Prisma.PeerCreateInput[] = [
     },
   },
   {
+    id:'f66c0aee-ff03-429e-bf95-b2ee55b4f210',
     name: 'org2.example.com',
     tlsCertPath: 'peer/org2.example.com/ca.crt',
     peerEndpoint: 'localhost:9051',
@@ -37,6 +39,7 @@ const peerData: Prisma.PeerCreateInput[] = [
 // User seed data
 const userData: Prisma.UserCreateInput[] = [
   {
+    id: 'f172ef6e-eff8-495a-9d44-ba7210a04cc7',
     name: 'User1',
     certPath: 'user/User1@org1.example.com/cert.pem',
     privateKeyPath: 'user/User1@org1.example.com/key.pem',
@@ -48,6 +51,7 @@ const userData: Prisma.UserCreateInput[] = [
     },
   },
   {
+    id:'068ccc8b-d43e-45f3-a9ad-1a99449f3306',
     name: 'User2',
     certPath: 'user/User1@org2.example.com/cert.pem',
     privateKeyPath: 'user/User1@org2.example.com/key.pem',
