@@ -40,9 +40,6 @@ $ npm run test:cov
  - seed dataの投入
  `npx prisma db seed`
 
-## ER図
-https://drive.google.com/file/d/1xYKaVIECLKaOo0NEShXlshQ16secAAYn/view?usp=sharing
-
 ## 各ディレクトリ構成について
  - src/controller
    - ルーティング用のディレクトリ（プレゼンテーション層）
