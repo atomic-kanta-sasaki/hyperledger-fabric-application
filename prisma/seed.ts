@@ -14,6 +14,8 @@ const peerData: Prisma.PeerCreateInput[] = [
   {
     name: 'org1.example.com',
     tlsCertPath: 'peer/org1.example.com/ca.crt',
+    peerEndpoint: 'localhost:7051',
+    peerHostAlias: 'peer0.org1.example.com',
     organization: {
       connect: {
         id: '1',
@@ -23,6 +25,8 @@ const peerData: Prisma.PeerCreateInput[] = [
   {
     name: 'org2.example.com',
     tlsCertPath: 'peer/org2.example.com/ca.crt',
+    peerEndpoint: 'localhost:9051',
+    peerHostAlias: 'peer0.org2.example.com',
     organization: {
       connect: {
         id: '1',
@@ -36,6 +40,7 @@ const userData: Prisma.UserCreateInput[] = [
     name: 'User1',
     certPath: 'user/User1@org1.example.com/cert.pem',
     privateKeyPath: 'user/User1@org1.example.com/key.pem',
+    mspId: 'Org1MSP',
     organization: {
       connect: {
         id: '1',
@@ -46,6 +51,7 @@ const userData: Prisma.UserCreateInput[] = [
     name: 'User2',
     certPath: 'user/User1@org2.example.com/cert.pem',
     privateKeyPath: 'user/User1@org2.example.com/key.pem',
+    mspId: 'Org2MSP',
     organization: {
       connect: {
         id: '1',

@@ -5,33 +5,47 @@ import { Asset } from "src/domain/asset/asset";
 import { PrismaService } from "../prisma/prisma.service";
 
 @Injectable()
-export class AssetRepository implements OnModuleInit {
+export class AssetRepository {
     private readonly channelName = 'mychannel';
     private readonly chaincodeName = 'basic';
     private contract: Contract;
     private utf8Decoder = new TextDecoder();
 
     constructor(
-        private readonly prismaService: PrismaService,
+        // private readonly prismaService: PrismaService,
         private readonly fabricGatewayService: FabricGatewayService,
     ) {}
 
-    async onModuleInit() {
+    // async onModuleInit() {
+    //     await this.fabricGatewayService.createConnection();
+    //     this.contract = this.fabricGatewayService.getContract(this.channelName, this.chaincodeName);
+    // }
+
+    /**
+     * TODO 本当はonModuleInitで呼び出すべきだが、ScopeをRequestServiceに定義していると動かないためいったん直接呼び出す方式で対応
+     */
+    private async ensureConnection() {
         await this.fabricGatewayService.createConnection();
         this.contract = this.fabricGatewayService.getContract(this.channelName, this.chaincodeName);
     }
+
     async initLedger() {
+        await this.ensureConnection()
         await this.contract.submitTransaction('InitLedger');
     }
 
     async getAllAssets() {
-      const resultBytes = await this.contract.evaluateTransaction('GetAllAssets');
+        await this.ensureConnection()
 
-      const resultJson = this.utf8Decoder.decode(resultBytes);
-      return JSON.parse(resultJson);
+        const resultBytes = await this.contract.evaluateTransaction('GetAllAssets');
+
+        const resultJson = this.utf8Decoder.decode(resultBytes);
+        return JSON.parse(resultJson);
     }
 
     async getAssetById(assetId: string): Promise<Asset> {
+        await this.ensureConnection()
+
         const resultBytes = await this.contract.evaluateTransaction('ReadAsset', assetId);
 
         if (!resultBytes || resultBytes.length === 0) {
@@ -45,24 +59,28 @@ export class AssetRepository implements OnModuleInit {
     }
 
     async createAsset(asset: Asset) {
+        await this.ensureConnection()
+
         await this.contract.submitTransaction('CreateAsset', asset.getId(), asset.getColor(), asset.getSize(), asset.getOwner(), asset.getValue());
     }
 
     async transferAsset(asset: Asset) {
-      console.log('\n--> Async Submit Transaction: TransferAsset, updates existing asset owner');
+        await this.ensureConnection()
 
-      const commit = await this.contract.submitAsync('TransferAsset', {
-          arguments: [asset.getId(), asset.getOwner()],
-      });
-      const oldOwner = this.utf8Decoder.decode(commit.getResult());
-  
-      console.log(`*** Successfully submitted transaction to transfer ownership from ${oldOwner} to Saptha`);
-      console.log('*** Waiting for transaction commit');
-  
-      const status = await commit.getStatus();
-      if (!status.successful) {
-          throw new Error(`Transaction ${status.transactionId} failed to commit with status code ${status.code}`);
-      }
+        console.log('\n--> Async Submit Transaction: TransferAsset, updates existing asset owner');
+
+        const commit = await this.contract.submitAsync('TransferAsset', {
+            arguments: [asset.getId(), asset.getOwner()],
+        });
+        const oldOwner = this.utf8Decoder.decode(commit.getResult());
+
+        console.log(`*** Successfully submitted transaction to transfer ownership from ${oldOwner} to Saptha`);
+        console.log('*** Waiting for transaction commit');
+
+        const status = await commit.getStatus();
+        if (!status.successful) {
+            throw new Error(`Transaction ${status.transactionId} failed to commit with status code ${status.code}`);
+        }
     }
 
 }

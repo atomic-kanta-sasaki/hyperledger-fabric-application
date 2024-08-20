@@ -26,6 +26,8 @@ model Peer {
   organization Organization @relation(fields: [organizationId], references: [id])
   organizationId String
   name String
+  peerEndpoint String @default("")
+  peerHostAlias String @default("")
   tlsCertPath String
 }
 
@@ -34,6 +36,7 @@ model User {
   organization Organization @relation(fields: [organizationId], references: [id])
   organizationId String
   name String
+  mspId String @default("")
   certPath String
   privateKeyPath String
 }

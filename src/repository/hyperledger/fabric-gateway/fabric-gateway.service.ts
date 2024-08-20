@@ -1,8 +1,12 @@
 import { connect, Network, Gateway, Contract } from '@hyperledger/fabric-gateway';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { GrpcClientProvider } from '../grpc-client/grpc-client';
 import { IdentityProvider } from '../identity/identity';
 import { SignerProvider } from '../signer/signer';
+import { RequestService } from 'src/usecase/request/request.service';
+import { REQUEST } from '@nestjs/core';
+import { UserRepository } from 'src/repository/user/userRepository';
+import { PeerRepository } from 'src/repository/peer/peerRepository';
 
 @Injectable()
 export class FabricGatewayService  {
@@ -12,12 +16,18 @@ export class FabricGatewayService  {
         private readonly clientProvider: GrpcClientProvider,
         private readonly identityProvider: IdentityProvider,
         private readonly signerProvider: SignerProvider,
+        private readonly requestService: RequestService,
+        private readonly userRepository: UserRepository,
+        private readonly peerRepository: PeerRepository
     ) {}
 
     async createConnection() {
-        const grpcConnection = await this.clientProvider.newGrpcConnection('localhost:7051', 'peer0.org1.example.com', 'peer/org1.example.com/ca.crt');
-        const identity = await this.identityProvider.newIdentity('Org1MSP','user/User1@org1.example.com/cert.pem');
-        const signer = await this.signerProvider.newSigner('user/User1@org1.example.com/key.pem')
+        const userId = this.requestService.getUserId();
+        const user = await this.getUserById(userId);
+        const peer = await this.getPeerByOrganizationId(user.organizationId);
+        const grpcConnection = await this.clientProvider.newGrpcConnection(peer.peerEndpoint, peer.peerHostAlias, peer.tlsCertPath);
+        const identity = await this.identityProvider.newIdentity(user.mspId, user.certPath);
+        const signer = await this.signerProvider.newSigner(user.privateKeyPath);
         this.gateway = connect({
             client: grpcConnection,
             identity: identity,
@@ -48,5 +58,13 @@ export class FabricGatewayService  {
 
     closeConnection(): void {
         this.gateway.close();
+    }
+
+    async getPeerByOrganizationId(organizationId: string) {
+        return this.peerRepository.getPeerByOrganizationId(organizationId);
+    }
+
+    async getUserById(id: string) {
+        return this.userRepository.getUserById(id);
     }
 }

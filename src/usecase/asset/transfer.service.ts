@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AssetRepository } from 'src/repository/Asset/assetRepository';
+import { AssetRepository } from 'src/repository/asset/assetRepository';
 
 @Injectable()
 export class TransferService {

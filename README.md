@@ -71,3 +71,10 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Prisma
+
+ - databaseの情報を更新した場合
+ `npx prisma migrate dev`
+ - seed dataの投入
+ `npx prisma db seed`

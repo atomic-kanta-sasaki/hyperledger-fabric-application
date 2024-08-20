@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE `Peer` ADD COLUMN `peerEndpoint` VARCHAR(191) NOT NULL DEFAULT '',
+    ADD COLUMN `peerHostAlias` VARCHAR(191) NOT NULL DEFAULT '';
+
+-- AlterTable
+ALTER TABLE `User` ADD COLUMN `mspId` VARCHAR(191) NOT NULL DEFAULT '';

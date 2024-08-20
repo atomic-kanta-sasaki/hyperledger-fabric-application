@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Asset } from 'src/domain/asset/asset';
-import { AssetRepository } from 'src/repository/Asset/assetRepository';
+import { AssetRepository } from 'src/repository/asset/assetRepository';
 
 @Injectable()
 export class GetAssetService {
