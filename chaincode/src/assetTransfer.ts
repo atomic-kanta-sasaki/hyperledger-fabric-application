@@ -63,6 +63,9 @@ export class AssetTransferContract extends Contract {
             // use convetion of alphabetic order
             // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
             // when retrieving data, in any lang, the order of data will be the same and consequently also the corresonding hash
+            if (!asset.ID) {
+                throw new Error('Asset ID must be defined');
+            }
             await ctx.stub.putState(asset.ID, Buffer.from(stringify(sortKeysRecursive(asset))));
             console.info(`Asset ${asset.ID} initialized`);
         }
@@ -137,7 +140,7 @@ export class AssetTransferContract extends Contract {
 
     // TransferAsset updates the owner field of asset with given id in the world state, and returns the old owner.
     @Transaction()
-    public async TransferAsset(ctx: Context, id: string, newOwner: string): Promise<string> {
+    public async TransferAsset(ctx: Context, id: string, newOwner: string): Promise<string | undefined> {
         const assetString = await this.ReadAsset(ctx, id);
         const asset = JSON.parse(assetString) as Asset;
         const oldOwner = asset.Owner;
