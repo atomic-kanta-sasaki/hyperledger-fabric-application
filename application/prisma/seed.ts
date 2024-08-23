@@ -41,8 +41,8 @@ const userData: Prisma.UserCreateInput[] = [
   {
     id: 'f172ef6e-eff8-495a-9d44-ba7210a04cc7',
     name: 'User1',
-    certPath: '../certificate/peerOrganizations/org1.example.com/msp/user/User1@org1.example.com/cert.pem',
-    privateKeyPath: '../certificate/peerOrganizations/org1.example.com/msp/user/User1@org1.example.com/key.pem',
+    certPath: 'certificate/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/cert.pem',
+    privateKeyPath: '../certificate/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/key.pem',
     mspId: 'Org1MSP',
     organization: {
       connect: {
@@ -53,8 +53,8 @@ const userData: Prisma.UserCreateInput[] = [
   {
     id:'068ccc8b-d43e-45f3-a9ad-1a99449f3306',
     name: 'User2',
-    certPath: '../certificate/peerOrganizations/org2.example.com/msp/user/User1@org2.example.com/cert.pem',
-    privateKeyPath: '../certificate/peerOrganizations/org2.example.com/msp/user/User1@org2.example.com/key.pem',
+    certPath: '../certificate/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/signcerts/cert.pem',
+    privateKeyPath: '../certificate/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/keystore/key.pem',
     mspId: 'Org2MSP',
     organization: {
       connect: {
