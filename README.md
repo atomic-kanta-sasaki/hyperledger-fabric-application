@@ -123,7 +123,7 @@ peer lifecycle chaincode package basic.tar.gz --path ./ --lang node --label basi
 
 ### Org1Peer に chaincodeをinstallする
 
-以下の環境変数をセットするときのには `hyperledger-fabric-application` ディレクトリで実行します
+以下の環境変数をセットするときは `hyperledger-fabric-application` ディレクトリで実行します
 
 ```jsx
 export CORE_PEER_TLS_ENABLED=true
