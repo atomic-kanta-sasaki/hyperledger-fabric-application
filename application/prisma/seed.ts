@@ -41,7 +41,7 @@ const userData: Prisma.UserCreateInput[] = [
   {
     id: 'f172ef6e-eff8-495a-9d44-ba7210a04cc7',
     name: 'User1',
-    certPath: 'certificate/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/cert.pem',
+    certPath: '../certificate/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/cert.pem',
     privateKeyPath: '../certificate/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/key.pem',
     mspId: 'Org1MSP',
     organization: {

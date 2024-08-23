@@ -30,7 +30,7 @@ export class AssetRepository {
 
     async initLedger() {
         await this.ensureConnection()
-        await this.contract.submitTransaction('InitLedger');
+        await this.contract.submitTransaction('InitLedgers');
     }
 
     async getAllAssets() {
