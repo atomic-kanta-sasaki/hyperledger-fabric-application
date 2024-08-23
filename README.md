@@ -252,8 +252,6 @@ Committed chaincode definition for chaincode 'basic' on channel 'mychannel':
 Version: 1.0, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc, Approvals: [Org1MSP: true, Org2MSP: true]
 ```
 
-peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride [orderer.example.com](http://orderer.example.com/) --tls --cafile ${ORDERER_TLS_CERT} -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/certificate/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/certificate/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c '{"function":"InitLedger","Args":[]}'
-
 [参考](https://hyperledger-fabric.readthedocs.io/ja/latest/deploy_chaincode.html#package-the-smart-contract)
 
 ## クライアントアプリケーション
