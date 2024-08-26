@@ -21,7 +21,7 @@ export class AssetRepository {
     // }
 
     /**
-     * TODO 本当はonModuleInitで呼び出すべきだが、ScopeをRequestServiceに定義していると動かないためいったん直接呼び出す方式で対応
+     * TODO 本当はonModuleInitで呼び出すべきだが、ScopeをRequestServiceに定義していると動かないため明示的に呼び出す方式で対応
      */
     private async ensureConnection() {
         await this.fabricGatewayService.createConnection();
