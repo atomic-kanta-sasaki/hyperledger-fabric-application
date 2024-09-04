@@ -25,6 +25,7 @@
   "dependencies": {
     "@hyperledger/fabric-gateway": "^1.5.1",
     "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.2.3",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "@prisma/client": "^5.18.0",

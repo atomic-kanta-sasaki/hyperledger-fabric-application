@@ -47,7 +47,7 @@ export class FabricGatewayService  {
           });
     }
 
-    getNetwork(channelName: string): Network {
+    private getNetwork(channelName: string): Network {
        return this.gateway.getNetwork(channelName);       
     }
 
@@ -55,15 +55,15 @@ export class FabricGatewayService  {
         return this.getNetwork(channelName).getContract(contractName);
     }
 
-    closeConnection(): void {
+    private closeConnection(): void {
         this.gateway.close();
     }
 
-    async getPeerByOrganizationId(organizationId: string) {
+    private async getPeerByOrganizationId(organizationId: string) {
         return this.peerRepository.getPeerByOrganizationId(organizationId);
     }
 
-    async getUserById(id: string) {
+    private async getUserById(id: string) {
         return this.userRepository.getUserById(id);
     }
 }
