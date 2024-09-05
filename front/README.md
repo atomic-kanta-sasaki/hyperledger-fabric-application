@@ -1,4 +1,30 @@
 # React + TypeScript + Vite
+## フロントエンド
+### 依存ファイルのinstall
+```jsx
+npm install
+```
+
+### アプリケーションの実行
+```jsx
+# development
+$ npm run dev
+```
+
+### **各ディレクトリ構成について**
+```markdown
+ - src/components
+   - システムで使用する共通のcomponent
+ - src/hooks
+   - カスタムフック（ロジックは切り出す）
+ - src/pages
+   - ルーティングから呼び出す
+   - UIコンポーネントとhooksをここで呼び出す
+ - src/ui
+   - UI部分を作成する
+   - ロジック部は引数で受け取る
+```
+
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

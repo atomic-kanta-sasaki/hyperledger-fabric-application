@@ -4,8 +4,8 @@ import {
     Routes
   } from "react-router-dom";
 import { PrimarySearchAppBar } from "./components/Header";
-import { Home } from "./page/Home";
-import { SampleForm } from "./page/SampleForm";
+import { Home } from "./pages/Home";
+import { SampleForm } from "./pages/SampleForm";
 export const AppRoutes = () => {
     return (
       <BrowserRouter>
