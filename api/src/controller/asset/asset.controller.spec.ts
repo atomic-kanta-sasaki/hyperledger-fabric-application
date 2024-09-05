@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AssetController } from './asset.controller';
-import { GetAllAssetService } from 'src/usecase/asset/getAllAsset.service';
-import { TransferService } from 'src/usecase/asset/transfer.service';
-import { GetAssetService } from 'src/usecase/asset/getAsset.service';
-import { InitAssetService } from 'src/usecase/asset/initAssetService';
+import { GetAllAssetModule } from 'src/module/usecase/asset/getAllAsset.module';
+import { GetAssetModule } from 'src/module/usecase/asset/getAsset.module';
+import { TransferModule } from 'src/module/usecase/asset/transfer.module';
+import { InitAssetModule } from 'src/module/usecase/asset/initAsset.module';
 
 describe('AssetController', () => {
   let controller: AssetController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [GetAllAssetModule, GetAssetModule, TransferModule, InitAssetModule],
       controllers: [AssetController],
-      providers: [GetAllAssetService, TransferService, GetAssetService, InitAssetService]
     }).compile();
 
     controller = module.get<AssetController>(AssetController);

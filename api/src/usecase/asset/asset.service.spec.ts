@@ -1,13 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AssetInitLedgerService } from './assetInitLedger.service';
-import { AssetRepository } from 'src/repository/asset/assetRepository';
+import { AssetRepositoryModule } from 'src/module/repository/asset/asset.module';
 
 describe('AssetService', () => {
   let service: AssetInitLedgerService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AssetInitLedgerService, AssetRepository],
+      imports: [AssetRepositoryModule],
+      providers: [AssetInitLedgerService],
     }).compile();
 
     service = module.get<AssetInitLedgerService>(AssetInitLedgerService);

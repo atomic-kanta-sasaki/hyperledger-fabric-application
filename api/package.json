@@ -70,6 +70,10 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "globalSetup": "<rootDir>/jestSetUp.ts",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "src/(.+)": "<rootDir>/$1"
+    }
   }
 }

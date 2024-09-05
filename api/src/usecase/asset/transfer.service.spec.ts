@@ -1,13 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TransferService } from './transfer.service';
-import { AssetRepository } from 'src/repository/asset/assetRepository';
+import { AssetRepositoryModule } from 'src/module/repository/asset/asset.module';
 
 describe('TransferService', () => {
   let service: TransferService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [TransferService, AssetRepository],
+      imports: [AssetRepositoryModule],
+      providers: [TransferService]
     }).compile();
 
     service = module.get<TransferService>(TransferService);
