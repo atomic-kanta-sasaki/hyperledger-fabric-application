@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GrpcClient } from './grpc-client';
+import { GrpcClientProvider } from './grpc-client';
 
 describe('GrpcClient', () => {
-  let provider: GrpcClient;
+  let provider: GrpcClientProvider;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [GrpcClient],
+      providers: [GrpcClientProvider],
     }).compile();
 
-    provider = module.get<GrpcClient>(GrpcClient);
+    provider = module.get<GrpcClientProvider>(GrpcClientProvider);
   });
 
   it('should be defined', () => {
