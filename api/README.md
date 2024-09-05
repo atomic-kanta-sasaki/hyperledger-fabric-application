@@ -34,11 +34,19 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## DB
+以下コマンドによりMySQLが立ち上がる
+``` bash
+$ docker compose up -d
+```
+
 ## Prisma
- - databaseの情報を更新した場合
+ - databaseのschema情報を更新した場合
  `npx prisma migrate dev`
  - seed dataの投入
  `npx prisma db seed`
+このseedデータの投入によりユーザーの公開鍵、秘密鍵やTSL証明書のファイルパス情報などを投入しています。
+IDは固定しているので、そのまま利用可能です
 
 ### **各ディレクトリ構成について**
 
