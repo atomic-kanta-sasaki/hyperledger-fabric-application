@@ -38,9 +38,10 @@ cd test-network
 
 ```
 ### 前提条件完了後手順
- - chaincodeの環境構築
- - api環境構築
- - front 環境構築
+ - [証明書の設定](https://github.com/atomic-kanta-sasaki/hyperledger-fabric-application/tree/main/certificate)
+ - [chaincodeの環境構築](https://github.com/atomic-kanta-sasaki/hyperledger-fabric-application/tree/main/chaincode)
+ - [api環境構築](https://github.com/atomic-kanta-sasaki/hyperledger-fabric-application/tree/main/api)
+ - [front 環境構築](https://github.com/atomic-kanta-sasaki/hyperledger-fabric-application/tree/main/front)
 
 ## 注意事項
 `./network.sh down` を実行するとdocker コンテナ、イメージ、ボリュームすべて削除されます。
