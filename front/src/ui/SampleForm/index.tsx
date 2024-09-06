@@ -15,12 +15,12 @@ type SampleFormProps = {
     handleSubmit: () => void,
 }
 
-export const SampleFormUi = ({
+export const SampleFormUi: React.FC<SampleFormProps> = ({
     formData,
     handleInputChange,
     handleSelectChange,
     handleSubmit,
-}: SampleFormProps) => {
+}) => {
     
     return (
         <FormLayout title="User Information">

@@ -1,15 +1,8 @@
-import create from 'zustand';
+import { create } from 'zustand';
 import { fetchAssets } from '../api/assetApi';
-type Asset = {
-    docType?: string;
-    ID?: string;
-    Color?: string;
-    Size?: number;
-    Owner?: string;
-    AppraisedValue?: number;
-};
+import { Asset } from '../types/Asset';
 
-interface AssetStoreState {
+type AssetStoreState = {
   assets: Asset[];
   loading: boolean;
   error: string | null;

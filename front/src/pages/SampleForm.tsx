@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useSampleForm } from "../hooks/form/useSampleForm";
 import { useAssetStore } from "../stores/assetStore";
-import { AssetUi } from "../ui/Asset";
 import { SampleFormUi } from "../ui/SampleForm";
+import { AssetTableUi } from "../ui/AssetTable";
 export const SampleForm: React.FC = () => {
   const { formData, handleInputChange, handleSelectChange, handleSubmit } = useSampleForm();
-  const { assets, loading, error, loadAssets } = useAssetStore();
+  const { assets, loadAssets } = useAssetStore();
 
   useEffect(() => {
     loadAssets();
@@ -19,11 +19,7 @@ export const SampleForm: React.FC = () => {
         handleSelectChange={handleSelectChange}
         handleSubmit={handleSubmit}
       />
-      <AssetUi 
-        assets={assets} 
-        loading={loading} 
-        error={error} 
-      />
+      <AssetTableUi rows={assets} /> 
     </>
     
   );
