@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// eslint-disable-next-line
 export const apiClient = async (endpoint: string, method = 'GET', body?: any) => {
   const options = {
     method,

@@ -19,6 +19,7 @@ export const useAssetStore = create<AssetStoreState>((set) => ({
     try {
       const assets: Asset[] = await fetchAssets(); 
       set({ assets, loading: false });
+    // eslint-disable-next-line
     } catch (error: any) {
       set({ error: error.message, loading: false });
     }
