@@ -1,0 +1,79 @@
+{
+	"name": "org2-network",
+	"version": "1.0.0",
+	"license": "Apache-2.0",
+	"client": {
+		"tlsEnable": true,
+		"caCredential": {
+			"id": "admin",
+			"password": "adminpw"
+		},
+		"adminCredential": {
+			"id": "org2exploreradmin",
+			"password": "exploreradminpw",
+			"affiliation": "org2.department1"
+		},
+		"organization": "org2",
+		"enableAuthentication": true,
+		"connection": {
+			"timeout": {
+				"peer": {
+					"endorser": "300"
+				},
+				"orderer": "300"
+			}
+		}
+	},
+	"channels": {
+		"org2channel": {
+			"peers": {
+				"peer0.org2.example.com": {}
+			},
+			"connection": {
+				"timeout": {
+					"peer": {
+						"endorser": "6000",
+						"eventHub": "6000",
+						"eventReg": "6000"
+					}
+				}
+			}
+		}
+	},
+	"organizations": {
+		"org2": {
+			"mspid": "Org2MSP",
+			"adminPrivateKey": {
+				"path": "/tmp/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore/priv_sk"
+			},
+			"peers": ["peer0.org2.example.com"],
+			"certificateAuthorities": ["ca0"],
+			"signedCert": {
+				"path": "/tmp/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/cert.pem"
+			}
+		}
+	},
+	"peers": {
+		"peer0.org2.example.com": {
+			"tlsCACerts": {
+				"path": "/tmp/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt"
+			},
+			"url": "grpcs://peer0.org2.example.com:9051",
+			"grpcOptions": {
+				"ssl-target-name-override": "peer0.org2.example.com"
+			}
+		}
+	},
+	"certificateAuthorities": {
+		"ca0": {
+			"url": "https://ca_org2:8054",
+			"httpOptions": {
+				"verify": false
+			},
+			"tlsCACerts": {
+				"path": "/tmp/crypto/peerOrganizations/org2.example.com/ca/ca.org2.example.com-cert.pem"
+			},
+			"caName": "ca_org2"
+		}
+	}
+}
