@@ -8,8 +8,14 @@ import { PeerRepositoryModule } from '../peer/peer.module';
 import { UserRepositoryModule } from '../user/user.module';
 
 @Module({
-    imports: [PeerRepositoryModule, UserRepositoryModule],
-    providers: [FabricGatewayService, GrpcClientProvider, IdentityProvider, SignerProvider, RequestService],
-    exports: [FabricGatewayService, RequestService],
-  })
+  imports: [PeerRepositoryModule, UserRepositoryModule],
+  providers: [
+    FabricGatewayService,
+    GrpcClientProvider,
+    IdentityProvider,
+    SignerProvider,
+    RequestService,
+  ],
+  exports: [FabricGatewayService, RequestService],
+})
 export class HyperledgerModule {}

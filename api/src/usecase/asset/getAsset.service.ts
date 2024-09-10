@@ -4,9 +4,8 @@ import { AssetRepository } from 'src/repository/asset/assetRepository';
 
 @Injectable()
 export class GetAssetService {
-    constructor(private readonly assetRepository: AssetRepository) {}
-    async call(id: string): Promise<Asset> {
-        return this.assetRepository.getAssetById(id)
-    }
+  constructor(private readonly assetRepository: AssetRepository) {}
+  async call(id: string): Promise<Asset> {
+    return this.assetRepository.getAssetById(id);
+  }
 }
-

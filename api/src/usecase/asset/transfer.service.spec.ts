@@ -8,7 +8,7 @@ describe('TransferService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [AssetRepositoryModule],
-      providers: [TransferService]
+      providers: [TransferService],
     }).compile();
 
     service = module.get<TransferService>(TransferService);

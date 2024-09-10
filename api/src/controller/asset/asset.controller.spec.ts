@@ -10,7 +10,12 @@ describe('AssetController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [GetAllAssetModule, GetAssetModule, TransferModule, InitAssetModule],
+      imports: [
+        GetAllAssetModule,
+        GetAssetModule,
+        TransferModule,
+        InitAssetModule,
+      ],
       controllers: [AssetController],
     }).compile();
 

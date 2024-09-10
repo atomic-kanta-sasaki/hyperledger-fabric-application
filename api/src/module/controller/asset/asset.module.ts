@@ -6,7 +6,7 @@ import { GetAssetModule } from 'src/module/usecase/asset/getAsset.module';
 import { InitAssetModule } from 'src/module/usecase/asset/initAsset.module';
 
 @Module({
-    imports: [GetAllAssetModule, GetAssetModule, TransferModule, InitAssetModule],
-    controllers: [AssetController],
+  imports: [GetAllAssetModule, GetAssetModule, TransferModule, InitAssetModule],
+  controllers: [AssetController],
 })
 export class AssetModule {}

@@ -13,7 +13,13 @@ describe('FabricGatewayService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [PeerRepositoryModule, UserRepositoryModule],
-      providers: [FabricGatewayService, GrpcClientProvider, IdentityProvider, SignerProvider, RequestService],  
+      providers: [
+        FabricGatewayService,
+        GrpcClientProvider,
+        IdentityProvider,
+        SignerProvider,
+        RequestService,
+      ],
     }).compile();
 
     service = module.get<FabricGatewayService>(FabricGatewayService);
