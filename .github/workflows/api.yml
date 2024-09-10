@@ -6,7 +6,7 @@ jobs:
   echo_hello_world:
     runs-on: ubuntu-latest
     env:
-      API_DIR: ./api
+      API_DIR: api
     steps:
       - name: Checkout
         uses: actions/checkout@v4
