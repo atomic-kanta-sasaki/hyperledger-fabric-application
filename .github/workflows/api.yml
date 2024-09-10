@@ -1,12 +1,9 @@
 name: API Actions
 
-on:
-  push:
-    paths:
-     - 'api/**'
+on: [push]
 
 jobs:
-  api_test:
+  api:
     runs-on: ubuntu-latest
     defaults:
       run:

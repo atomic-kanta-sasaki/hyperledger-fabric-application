@@ -1,12 +1,9 @@
 name: Frontend Actions
 
-on:
-  push:
-    paths:
-     - 'front/**'
+on: [push]
 
 jobs:
-  front_test:
+  front:
     runs-on: ubuntu-latest
     defaults:
       run:
