@@ -5,6 +5,8 @@ on: [push]
 jobs:
   echo_hello_world:
     runs-on: ubuntu-latest
+    env:
+      API_DIR: ./api
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -12,9 +14,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22'
-      - name: change directory
-        run: cd api
       - name: Install dependencies
         run: npm install
+        working-directory: ${{ env.WORKING_DIR }}
       - name: Run tests
         run: npm run test
+        working-directory: ${{ env.WORKING_DIR }}
