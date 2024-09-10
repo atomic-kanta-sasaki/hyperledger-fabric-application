@@ -1,6 +1,9 @@
 name: API Actions
 
-on: [push]
+on:
+  push:
+    paths:
+     - 'api/**'
 
 jobs:
   api_test:

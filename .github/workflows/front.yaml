@@ -1,6 +1,9 @@
 name: Frontend Actions
 
-on: [push]
+on:
+  push:
+    paths:
+     - 'front/**'
 
 jobs:
   front_test:
