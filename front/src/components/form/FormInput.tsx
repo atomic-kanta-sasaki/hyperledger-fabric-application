@@ -1,5 +1,5 @@
-import React from 'react';
-import { TextField } from '@mui/material';
+import React from "react";
+import { TextField } from "@mui/material";
 
 interface FormInputProps {
   label: string;
@@ -11,7 +11,15 @@ interface FormInputProps {
   helperText?: string;
 }
 
-export const FormInput: React.FC<FormInputProps> = ({ label, name, value, onChange, type = 'text', error, helperText }) => {
+export const FormInput: React.FC<FormInputProps> = ({
+  label,
+  name,
+  value,
+  onChange,
+  type = "text",
+  error,
+  helperText,
+}) => {
   return (
     <TextField
       fullWidth
@@ -27,4 +35,3 @@ export const FormInput: React.FC<FormInputProps> = ({ label, name, value, onChan
     />
   );
 };
-

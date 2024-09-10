@@ -6,7 +6,10 @@ import { AuthenticationMiddleware } from './middleware/authentication.middleware
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [AssetModule, HyperledgerModule, PrismaModule,
+  imports: [
+    AssetModule,
+    HyperledgerModule,
+    PrismaModule,
     ConfigModule.forRoot({
       isGlobal: true, // グローバルモジュールとして設定（他のモジュールでインポート不要）
     }),
@@ -16,6 +19,6 @@ import { ConfigModule } from '@nestjs/config';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-      consumer.apply(AuthenticationMiddleware).forRoutes('*');
+    consumer.apply(AuthenticationMiddleware).forRoutes('*');
   }
 }

@@ -8,7 +8,7 @@ describe('GetAllAssetService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [GetAllAssetService],
-      imports: [AssetRepositoryModule]
+      imports: [AssetRepositoryModule],
     }).compile();
 
     service = module.get<GetAllAssetService>(GetAllAssetService);

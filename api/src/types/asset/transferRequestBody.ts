@@ -1,4 +1,4 @@
 export type TransferRequestBody = {
-    assetId: string;
-    newOwner: string;
-}
+  assetId: string;
+  newOwner: string;
+};
