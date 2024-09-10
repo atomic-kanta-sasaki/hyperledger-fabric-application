@@ -33,6 +33,8 @@ export class Asset {
     return this.owner;
   }
 
+  
+
   public getValue(): string {
     return this.value;
   }
