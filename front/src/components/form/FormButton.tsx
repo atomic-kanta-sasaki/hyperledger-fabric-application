@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button } from '@mui/material';
+import React from "react";
+import { Button } from "@mui/material";
 
 interface FormButtonProps {
   label: string;
@@ -7,9 +7,19 @@ interface FormButtonProps {
   disabled?: boolean;
 }
 
-export const FormButton: React.FC<FormButtonProps> = ({ label, onClick, disabled = false }) => {
+export const FormButton: React.FC<FormButtonProps> = ({
+  label,
+  onClick,
+  disabled = false,
+}) => {
   return (
-    <Button fullWidth variant="contained" color="primary" onClick={onClick} disabled={disabled}>
+    <Button
+      fullWidth
+      variant="contained"
+      color="primary"
+      onClick={onClick}
+      disabled={disabled}
+    >
       {label}
     </Button>
   );

@@ -1,5 +1,5 @@
-import { apiClient } from './apiClient';
+import { apiClient } from "./apiClient";
 
 export const fetchAssets = async () => {
-  return apiClient('asset/all');
+  return apiClient("asset/all");
 };
