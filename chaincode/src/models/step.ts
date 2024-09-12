@@ -7,7 +7,7 @@ import {Transaction} from './transaction';
 
 @Object()
 export class Step {
-  //ステップを一意に識別するID
+    //ステップを一意に識別するID
     @Property()
     public id: string = "";
 
