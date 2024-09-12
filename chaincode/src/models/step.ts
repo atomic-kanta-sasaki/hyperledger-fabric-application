@@ -28,5 +28,6 @@ export class Step {
     public next_id?: string;
 
     //トランザクション情報
+    @Property()
     public transactions?: Transaction[];
 }

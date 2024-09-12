@@ -7,7 +7,7 @@ import {TransactionAssetDetail} from './transactionAssetDetail';
 
 @Object()
 export class Transaction {
-  //トランザクションの一意のID
+    //トランザクションの一意のID
     @Property()
     public id: string = "";
 
@@ -32,5 +32,6 @@ export class Transaction {
     public status?: string;
 
     //製品または部品情報
+    @Property()
     public transaction_asset_details?: TransactionAssetDetail[];
 }
