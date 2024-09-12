@@ -12,7 +12,7 @@ export class QualityCheck {
 
     //品質検査が実施された日時
     @Property()
-    public execute_at?: string;
+    public executed_at?: string;
 
     //品質検査の結果
     @Property()
