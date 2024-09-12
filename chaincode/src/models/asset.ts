@@ -13,6 +13,10 @@ export class Asset {
     //名前
     @Property()
     public name: string = "";
+    
+    //説明
+    @Property()
+    public description?: string;
 
     //ロット番号
     @Property()

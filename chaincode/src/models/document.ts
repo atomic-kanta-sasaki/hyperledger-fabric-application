@@ -10,6 +10,10 @@ export class Document {
     @Property()
     public id: string = "";
 
+    //トランザクションID
+    @Property()
+    public transaction_id: string = "";
+
     //文書の種類
     @Property()
     public kind?: string;

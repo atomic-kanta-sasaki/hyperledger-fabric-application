@@ -4,21 +4,14 @@
 
 import {Object, Property} from 'fabric-contract-api';
 
+// テーブル: サプライチェーン上のトランザクションを追跡
 @Object()
-export class ComplianceCertification {
-    //コンプライアンス認証のID
+export class Track {
+    //追跡用ID
     @Property()
     public id: string = "";
 
     //トランザクションID
     @Property()
     public transaction_id: string = "";
-
-    //認証のタイプ
-    @Property()
-    public kind?: string;
-
-    //認証が発行された日
-    @Property()
-    public issue_date?: string;
 }

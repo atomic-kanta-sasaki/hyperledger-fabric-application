@@ -3,11 +3,19 @@
 */
 
 import {Object, Property} from 'fabric-contract-api';
-import {Transaction} from './transaction';
 
+// サプライチェーン上のルール
+// 各ステップで何が実行され、次のステップは何か。
+// 5W（Who, What, When, Where, Why）の情報を持つ。
+// Who: 誰が実行するか : organization_id
+// What: 何を実行するか : name, description
+// When: いつ実行するか : id (previous_id, next_id で順序を定義)
+// Where: どこで実行するか : organization_id
+// Why: なぜ実行するか : description
+// 例: 製造工場で製造する。次のステップは認証で、認証機関で実行する。
 @Object()
 export class Step {
-    //ステップを一意に識別するID
+    //ステップID
     @Property()
     public id: string = "";
 
@@ -19,15 +27,11 @@ export class Step {
     @Property()
     public organization_id: string = ""
 
-    //直前のステップのID
+    //直前のステップID
     @Property()
     public previous_id?: string;
 
-    //次のステップのID
+    //次のステップID
     @Property()
     public next_id?: string;
-
-    //トランザクション情報
-    @Property()
-    public transactions?: Transaction[];
 }

@@ -14,11 +14,11 @@ export class User {
     @Property()
     public organization_id: string = "";
 
-    //登録日時
-    @Property()
-    public created_at: string = "";
-
     //ユーザタイプ（例: オペレータ、検査官、管理者など）
     @Property()
     public kind?: string;
+
+    //登録日時
+    @Property()
+    public created_at: string = "";
 }
