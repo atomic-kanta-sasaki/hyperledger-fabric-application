@@ -3,6 +3,7 @@
 */
 
 import {Object, Property} from 'fabric-contract-api';
+import { Transaction } from './transaction';
 
 // テーブル: サプライチェーン上のトランザクションを追跡
 @Object()
@@ -11,7 +12,7 @@ export class Track {
     @Property()
     public id: string = "";
 
-    //トランザクションID
+    //TrackID に紐づくトランザクションのリスト
     @Property()
-    public transaction_id: string = "";
+    public transactions?: Transaction[] = [];
 }
