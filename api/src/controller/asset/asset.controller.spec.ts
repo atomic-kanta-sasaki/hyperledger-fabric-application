@@ -4,6 +4,7 @@ import { GetAllAssetModule } from 'src/module/usecase/asset/getAllAsset.module';
 import { GetAssetModule } from 'src/module/usecase/asset/getAsset.module';
 import { TransferModule } from 'src/module/usecase/asset/transfer.module';
 import { InitAssetModule } from 'src/module/usecase/asset/initAsset.module';
+import { RegisterAssetModule } from 'src/module/usecase/asset/register.module';
 
 describe('AssetController', () => {
   let controller: AssetController;
@@ -15,6 +16,7 @@ describe('AssetController', () => {
         GetAssetModule,
         TransferModule,
         InitAssetModule,
+        RegisterAssetModule,
       ],
       controllers: [AssetController],
     }).compile();
