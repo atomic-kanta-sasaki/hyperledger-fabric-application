@@ -22,10 +22,7 @@ export class AssetController {
   
   @Get('/register')
   async registerAsset(@Query() query) {
-    console.log(query.value);
-    const jsonString = atob(query.value);
-    console.log(jsonString);
-    return this.registerAssetService.call();
+    return this.registerAssetService.call(query.value);
   }
 
   @Get(':id')

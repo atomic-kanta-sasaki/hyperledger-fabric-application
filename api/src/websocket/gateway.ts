@@ -8,7 +8,7 @@ import {
 import { Server } from 'socket.io';
 
 @WebSocketGateway({ cors: { origin: '*' } })
-export class Gateway implements OnModuleInit {
+export class WebsocketGateway implements OnModuleInit {
   @WebSocketServer()
   server: Server;
 
@@ -28,5 +28,12 @@ export class Gateway implements OnModuleInit {
       content: body,
     });
     console.log(body);
+  }
+
+  hoge(value) {
+    this.server.emit('onMessage', {
+      msg: 'New Message',
+      content: value,
+    });
   }
 }

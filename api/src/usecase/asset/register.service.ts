@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { AssetRepository } from 'src/repository/asset/assetRepository';
+import { WebsocketGateway } from 'src/websocket/gateway';
 
 @Injectable()
 export class RegisterAssetService {
-  constructor(private readonly assetRepository: AssetRepository) {}
-  async call(): Promise<void> {
-    // return this.assetRepository.initLedger();
+  constructor(private readonly gawaway: WebsocketGateway) {}
+  async call(value: string): Promise<void> {
+    this.gawaway.hoge(value)
     console.log('registerAssetService');
   }
 }

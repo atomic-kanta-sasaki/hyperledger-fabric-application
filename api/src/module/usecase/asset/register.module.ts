@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AssetRepositoryModule } from 'src/module/repository/asset/asset.module';
 import { RegisterAssetService } from 'src/usecase/asset/register.service';
+import { WebsocketGateway } from 'src/websocket/gateway';
 
 @Module({
-  imports: [AssetRepositoryModule],
-  providers: [RegisterAssetService],
+  providers: [RegisterAssetService, WebsocketGateway],
   exports: [RegisterAssetService],
 })
 export class RegisterAssetModule {}
