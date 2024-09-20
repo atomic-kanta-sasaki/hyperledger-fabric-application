@@ -6,6 +6,7 @@ export const Home: React.FC = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<string[]>([]);
   useEffect(() => {
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
     socket.on('onMessage', (data: any) => {
       setMessages((prev) => [...prev, data.content]);
     });
